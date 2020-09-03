@@ -1,4 +1,5 @@
-﻿using InvestmentOptionCalculator.Api.Enums;
+﻿using FluentValidation;
+using InvestmentOptionCalculator.Api.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,15 @@ namespace InvestmentOptionCalculator.Api.Models.Requests
         public decimal TotalAmount { get; set; }
 
         public List<CalculateOptionRequest> Options { get; set; }
+    }
+
+    //fluent validation validatior
+    public class ContactUpdateRequestValidator : AbstractValidator<CalculateROIRequest>
+    {
+        public ContactUpdateRequestValidator()
+        {
+            RuleFor(model => model.TotalAmount).GreaterThanOrEqualTo(0.0M);
+            RuleForEach(model => model.Options).SetValidator(new CalculateOptionRequestValidator());
+        }
     }
 }
