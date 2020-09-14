@@ -70,8 +70,6 @@ namespace InvestmentOptionCalculator.Api
             var assembly = Assembly.GetAssembly(typeof(Startup));
             services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(assembly)).AddNewtonsoftJson();
 
-            services.AddControllers();
-
             //app services
             services.AddTransient<ICurrencyRateService, CurrencyRateService>();
             services.AddTransient<ICurrencyConversionService, CurrencyConversionService>();
